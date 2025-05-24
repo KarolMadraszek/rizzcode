@@ -8,7 +8,8 @@ from .models import Article, Language
 class ArticleAdmin(admin.ModelAdmin):
     # dodac fieldset
     fields = ["title", "content",
-              "link", "language",]
+              "link", "language",
+              "date"]
 
 
 admin.site.register(Article, ArticleAdmin)
