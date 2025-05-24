@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moja aplikacja</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <p>Zalogowany jako {{ user.username }} | <a href="{% url 'logout' %}">Wyloguj</a></p>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>
