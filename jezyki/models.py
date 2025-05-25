@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class LanguageManager(models.Manager):
@@ -23,7 +24,7 @@ class Article(models.Model):
     content = models.TextField()
     link = models.URLField(blank=True)  
     language = models.ForeignKey(Language, related_name='articles', on_delete=models.CASCADE)
-    date = models.DateTimeField("Date published")
+    date = models.DateTimeField("Date published", default=timezone.now)
     # author = models.CharField(max_length=32)
 
     def __str__(self):

@@ -1,18 +1,14 @@
 from django.conf import settings
-
 from django.db import models
 from django.contrib.auth import get_user_model
+from jezyki.models import Language
 
 User = get_user_model()
 
 # Create your models here.
 
 class Exercise(models.Model):
-    class LanguageChoices(models.TextChoices):
-        CSHARP = "C#", "Csharp"
-        PYTHON = "Py", "Python"
-        SQL = "SQL", "Structured Query Language (SQL)"
-
+    
     title = models.CharField(
         max_length=30,
         help_text="Title of the exercise."
@@ -28,10 +24,9 @@ class Exercise(models.Model):
         help_text="Output (code) to be asserted."
     )
 
-    language = models.CharField(
-        max_length=10,
-        choices=LanguageChoices.choices,
-        default=LanguageChoices.PYTHON,
+    language = models.ForeignKey(
+        Language,
+        on_delete=models.CASCADE,
         help_text="Programming language of the exercise."
     )
 
@@ -45,7 +40,7 @@ class Solution(models.Model):
     """
     Published exercise. 1:1 to the Test model.
     """
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    exercise = models.OneToOneField(Exercise, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments")
     completed = models.BooleanField(default=False)
     # wypierdolić — to nawet nie korzysta z bazy danych...
