@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'stronaglowna',
     'zadania',
     'jezyki',
-    'login'
+    'login',
 ]
 
 MIDDLEWARE = [
@@ -130,5 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/zadania/'     # po zalogowaniu
 LOGIN_URL = '/accounts/login/'       # strona logowania
-
 

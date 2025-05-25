@@ -20,6 +20,10 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 from django.contrib.auth import views as auth_views
 
+
+# ninja
+from .api import api as projectapi
+
 urlpatterns = [
     # Strona głowna
     path('', include('stronaglowna.urls')),
@@ -28,5 +32,7 @@ urlpatterns = [
     # Wybor zadan
     path('zadania/', include('zadania.urls')),
     path('accounts/', include('login.urls')), 
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    # API
+    path("api/", projectapi.urls),
 ]
