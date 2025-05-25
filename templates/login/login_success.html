@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel użytkownika</title>
+</head>
+<body>
+    <h1>Witaj, {{ user.username }}!</h1>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Wyloguj się</button>
+        </form>
+    {% endif %}
+    <a href="{% url 'change-password' %}" style="margin-top: 100px;">Zmień hasło</a>
+
+</body>
+</html>

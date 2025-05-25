@@ -81,9 +81,9 @@ def upload_solution(request, exercise_id):
                 if output_clean == expected_clean:
                     solution.completed = True
                     solution.save()
-                    return render(request, 'zadania/success.html', {'exercise': exercise})
+                    return render(request, 'zadania/success.html', {'exercise': exercise, 'solution': solution})
                 else:
-                    return render(request, 'zadania/failure.html', {'exercise': exercise, 'output': output})
+                    return render(request, 'zadania/failure.html', {'exercise': exercise, 'output': output, 'solution': solution})
 
             except subprocess.TimeoutExpired:
                 output = 'Execution timeout'
@@ -93,6 +93,7 @@ def upload_solution(request, exercise_id):
         form = SolutionUploadForm()
 
     return render(request, 'zadania/upload_solution.html', {'exercise': exercise, 'form': form})
+
 
 def szczegoly_zadania(request, exercise_id):
     exercise = get_object_or_404(Exercise, pk=exercise_id)
@@ -138,12 +139,13 @@ def submit_sql_solution(request, exercise_id):
             )
 
             if solution.completed:
-                return render(request, 'zadania/success.html', {'exercise': exercise})
+                return render(request, 'zadania/success.html', {'exercise': exercise, 'solution': solution})
             else:
                 return render(request, 'zadania/failure1.html', {
                     'exercise': exercise,
                     'user_sql': user_query,
-                    'expected_sql': exercise.assert_output
+                    'expected_sql': exercise.assert_output,
+                    'solution': solution
             })
         else:
             error_message = "Invalid form submission."
